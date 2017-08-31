@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.wheejuni.haksik.controller.ParserController;
 import com.wheejuni.haksik.domain.Cafeteria;
 import com.wheejuni.haksik.domain.Cafeteria.CafName;
 import com.wheejuni.haksik.domain.Meal;
@@ -17,7 +18,7 @@ public class MealParser {
 
 	@Autowired
 	CafeteriaRepository cafeRepo;
-
+	
 	@Autowired
 	MealRepository mealRepo;
 

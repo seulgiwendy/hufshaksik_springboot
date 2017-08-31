@@ -18,8 +18,9 @@ import com.wheejuni.haksik.utils.DateUtils;
 public class ParserController {
 	
 	@Autowired
-	MealRepository mealRepo;
+	public MealRepository mealRepo;
 	
+	MealParser mp = new MealParser();
 	
 	
 	private static final String PROCESSED_TIME = DateUtils.getTimeStamp();
@@ -34,6 +35,10 @@ public class ParserController {
 		mealRepo.save(meal);
 		return new ParseMessage(true, PROCESSED_TIME, meal.getCafname());
 
+	}
+	
+	public MealRepository getMealRepo() {
+		return this.mealRepo;
 	}
 
 }
