@@ -3,6 +3,7 @@ package com.wheejuni.haksik.model;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.wheejuni.haksik.domain.Cafeteria;
 import com.wheejuni.haksik.domain.Cafeteria.CafName;
@@ -11,6 +12,7 @@ import com.wheejuni.haksik.repositories.CafeteriaRepository;
 import com.wheejuni.haksik.repositories.MealRepository;
 import com.wheejuni.haksik.utils.DateUtils;
 
+@Component
 public class MealParser {
 
 	@Autowired
@@ -36,9 +38,7 @@ public class MealParser {
 	}
 
 	public void saveCafs() {
-		if (cafeRepo == null) {
-			throw new RepositoryFailException("레포지토리 확인 바랍니다.");
-		}
+
 		ArrayList<Cafeteria> cafList = setCafs();
 		if (cafList == null) {
 			System.out.println("하나에 코드를! 둘에 잘짜자!");
@@ -56,9 +56,7 @@ public class MealParser {
 		try {
 			String date = DateUtils.getDate();
 			String cafName = meal.getCafname();
-
-			Cafeteria caf = cafeRepo.findByNameAndDate(cafName, date);
-			meal.setCafeteria(caf);
+			System.out.println(meal.toString());
 			mealRepo.save(meal);
 			return true;
 		} catch (Exception e) {

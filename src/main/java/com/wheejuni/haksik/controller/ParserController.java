@@ -11,22 +11,28 @@ import com.wheejuni.haksik.domain.Meal;
 import com.wheejuni.haksik.domain.MessageResponse;
 import com.wheejuni.haksik.domain.ParseMessage;
 import com.wheejuni.haksik.model.MealParser;
+import com.wheejuni.haksik.repositories.MealRepository;
 import com.wheejuni.haksik.utils.DateUtils;
 
 @RestController("/api")
 public class ParserController {
-
+	
+	@Autowired
+	MealRepository mealRepo;
+	
+	
+	
 	private static final String PROCESSED_TIME = DateUtils.getTimeStamp();
 	
-	MealParser mealParser = new MealParser();
+
 
 	@PostMapping("/parser")
 	public ParseMessage getParseCommand(@RequestBody Meal meal) {
 		
 		System.out.println("Something has invoked POST request to parser.");
 		System.out.println(meal);
-		mealParser.saveCafs();
-		return new ParseMessage(mealParser.saveMeals(meal), PROCESSED_TIME, meal.getCafname());
+		mealRepo.save(meal);
+		return new ParseMessage(true, PROCESSED_TIME, meal.getCafname());
 
 	}
 
