@@ -1,6 +1,5 @@
 package com.wheejuni.haksik.domain;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MessageIncoming {
 
@@ -17,15 +16,10 @@ public class MessageIncoming {
 			return this.type;
 		}
 	}
-	
-	@JsonProperty("content")
+
 	private String content;
-	
-	@JsonProperty("type")
+
 	private String type;
-	
-	@JsonProperty("user_key")
-	private String userKey;
 
 	public String getContent() {
 		return content;

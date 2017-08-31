@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 public class Meal {
 
@@ -31,19 +33,33 @@ public class Meal {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
+	@JsonProperty("rep_menu")
 	private String menutitle;
-	private String submenu;
-	private String price;
-	private String startTime;
-	private String endTime;
 
+	@JsonProperty("menus")
+	private String submenu;
+
+	private String price;
+	
+	@JsonProperty("frtime")
+	private String startTime;
+	
+	@JsonProperty("totime")
+	private String endTime;
+	
+	@JsonProperty("caf_name")
 	private String cafname;
 
+	@JsonProperty("corner_name")
 	private String cornerName;
 
 	@ManyToOne
 	@JoinColumn(foreignKey = @ForeignKey(name = "fk_menus_cafeteria"))
 	private Cafeteria cafeteria;
+	
+	public Meal() {
+		
+	}
 
 	public Meal(String menutitle, String submenu, String price, String startTime, String endTime, MealType mealtype) {
 		this.menutitle = menutitle;
@@ -127,6 +143,7 @@ public class Meal {
 		returnStringBuilder.append(" -> " + this.price);
 		returnStringBuilder.append("\n");
 		returnStringBuilder.append("(" + this.submenu + ")");
+		returnStringBuilder.append("\n");
 		returnStringBuilder.append(this.startTime + "~" + this.endTime);
 		returnStringBuilder.append("\n");
 

@@ -14,12 +14,12 @@ import com.wheejuni.haksik.utils.DateUtils;
 public class MealParser {
 
 	@Autowired
-	static CafeteriaRepository cafeRepo;
-	
-	@Autowired
-	static MealRepository mealRepo;
+	CafeteriaRepository cafeRepo;
 
-	public static ArrayList<Cafeteria> setCafs() {
+	@Autowired
+	MealRepository mealRepo;
+
+	public ArrayList<Cafeteria> setCafs() {
 		String today = DateUtils.getDate();
 		ArrayList<Cafeteria> cafList = new ArrayList<>();
 
@@ -35,26 +35,33 @@ public class MealParser {
 
 	}
 
-	public static void saveCafs() {
+	public void saveCafs() {
+		if (cafeRepo == null) {
+			throw new RepositoryFailException("레포지토리 확인 바랍니다.");
+		}
 		ArrayList<Cafeteria> cafList = setCafs();
-
+		if (cafList == null) {
+			System.out.println("하나에 코드를! 둘에 잘짜자!");
+		}
 		for (Cafeteria cafe : cafList) {
+			if (cafe == null) {
+				System.out.println("하나에 코딩을! 둘에 잘하자! 하나! 코딩을~ 둘! 잘하자~");
+			}
 			cafeRepo.save(cafe);
 		}
 	}
 
-	public static boolean saveMeals(Meal meal) {
-		
+	public boolean saveMeals(Meal meal) {
+
 		try {
-		String date = DateUtils.getDate();
-		String cafName = meal.getCafname();
-		
-		Cafeteria caf = cafeRepo.findByNameAndDate(cafName, date);
-		meal.setCafeteria(caf);
-		mealRepo.save(meal);
-		return true;
-		}
-		catch(Exception e) {
+			String date = DateUtils.getDate();
+			String cafName = meal.getCafname();
+
+			Cafeteria caf = cafeRepo.findByNameAndDate(cafName, date);
+			meal.setCafeteria(caf);
+			mealRepo.save(meal);
+			return true;
+		} catch (Exception e) {
 			e.printStackTrace(System.err);
 			return false;
 		}
